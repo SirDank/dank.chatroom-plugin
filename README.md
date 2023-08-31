@@ -18,3 +18,7 @@
 ## ♦️ visual bukkit preview ♦️
 
 <br><p align="center"><a href="https://github.com/OfficialDonut/VisualBukkit"><img width="800" alt="image" src="https://camo.githubusercontent.com/f124fc198b8e16d1c4e7ebf540e19491e5db60bfbae014d05c4e537e568e55c8/68747470733a2f2f692e696d6775722e636f6d2f365039685237762e706e67"></p></a><br>
+
+## ♦️ bStats ♦️
+
+<br><p align="center">[![BStats Metrics](https://bstats.org/signatures/bukkit/dank-chatroom.svg)](https://bstats.org/plugin/bukkit/dank-chatroom/19689)</p><br>
