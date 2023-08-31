@@ -1,0 +1,14 @@
+name: "DankChatroom"
+version: "1.0"
+main: "vb.$dankchatroom.PluginMain"
+api-version: 1.13
+authors: [SirDank]
+description: "Minecraft server integration for the dank.tool's chatroom!"
+prefix: "dank.chatroom"
+website: "https://github.com/SirDank/dank.chatroom-plugin"
+commands:
+  chatroom-connect:
+    description: "Connects server to the dank.tool's chatroom!"
+  chatroom-disconnect:
+    description: "Disconnects server from the dank.tool's chatroom!"
+permissions:
