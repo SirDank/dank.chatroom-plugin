@@ -7,6 +7,11 @@
 
 - Seemlessly connect one server's chat with another!
 
+## ♦️ commands ♦️
+
+- /chatroom-connect
+- /chatroom-disconnect
+
 ## ♦️ direct download ♦️
 
 URL: https://github.com/SirDank/dank.chatroom-plugin/raw/main/Visual%20Bukkit%20Project/Build/target/dankchatroom.jar
