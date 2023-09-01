@@ -13,6 +13,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 
 	public static Object GLOBAL_9ce148715491d15c729aff6847d37f60;
 	public static Object GLOBAL_65e48c28264992f0f46da7786376f6c3;
+	public static Object GLOBAL_6613e6c3dc9064e6ad3422610595df88;
 	public static Object GLOBAL_54bc2ca21fe9f603fdf50a6cae5269ec;
 
 	@Override
@@ -74,10 +75,27 @@ public class PluginMain extends JavaPlugin implements Listener {
 	}
 
 	public static void procedure(String procedure, List procedureArgs) throws Exception {
+		if (procedure.equalsIgnoreCase("chatroom_login")) {
+			Object $01903771aa49381d3482b07d777054c5 = null;
+			try {
+				$01903771aa49381d3482b07d777054c5 = PluginMain.function("send_request",
+						new ArrayList(Arrays.asList("https://dank-site.onrender.com/chatroom-login", "POST",
+								GLOBAL_6613e6c3dc9064e6ad3422610595df88)));
+				PluginMain.getInstance().getLogger().info("Logged in!");
+			} catch (Exception wuKhLJGAaYoATIKI) {
+				PluginMain.getInstance().getLogger().severe("Failed to login!");
+				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
+			}
+			return;
+		}
 		if (procedure.equalsIgnoreCase("chatroom_enabler")) {
 			PluginMain.GLOBAL_54bc2ca21fe9f603fdf50a6cae5269ec = ((java.lang.Object) (Object) (0d));
 			PluginMain.procedure("get_hwid", new ArrayList());
 			if (PluginMain.checkEquals(GLOBAL_9ce148715491d15c729aff6847d37f60, ((java.lang.Object) (Object) true))) {
+				PluginMain.GLOBAL_6613e6c3dc9064e6ad3422610595df88 = PluginMain.function("compress",
+						new ArrayList(Arrays.asList(
+								(("{\"uuid\":\"" + String.valueOf(GLOBAL_65e48c28264992f0f46da7786376f6c3)) + "\"}"))));
+				PluginMain.procedure("chatroom_login", new ArrayList());
 				new org.bukkit.scheduler.BukkitRunnable() {
 					public void run() {
 						try {
@@ -85,8 +103,8 @@ public class PluginMain extends JavaPlugin implements Listener {
 									((java.lang.Object) (Object) true))) {
 								try {
 									PluginMain.procedure("chatroom_validator", new ArrayList());
-								} catch (Exception PCCsGlCqJRGJpbTr) {
-									PluginMain.getInstance().getLogger().severe("Failed to login!");
+								} catch (Exception UUXAGIxZaoCuVreB) {
+									PluginMain.getInstance().getLogger().severe("Failed to validate!");
 									PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 									cancel();
 								}
@@ -105,7 +123,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 									((java.lang.Object) (Object) true))) {
 								try {
 									PluginMain.procedure("chatroom_grabber", new ArrayList());
-								} catch (Exception ZjDDAbUdvKCyYNUE) {
+								} catch (Exception kEAxskmfBNPKVDRK) {
 									PluginMain.getInstance().getLogger().severe("Failed to get chat!");
 									PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 									cancel();
@@ -167,12 +185,9 @@ public class PluginMain extends JavaPlugin implements Listener {
 		}
 		if (procedure.equalsIgnoreCase("chatroom_validator")) {
 			Object $01903771aa49381d3482b07d777054c5 = null;
-			Object $e7cb42ac1349db10ce0fd08b421bb3db = null;
-			$e7cb42ac1349db10ce0fd08b421bb3db = PluginMain.function("compress", new ArrayList(Arrays
-					.asList((("{\"uuid\":\"" + String.valueOf(GLOBAL_65e48c28264992f0f46da7786376f6c3)) + "\"}"))));
 			$01903771aa49381d3482b07d777054c5 = PluginMain.function("send_request",
-					new ArrayList(Arrays.asList("https://dank-site.onrender.com/chatroom-login", "POST",
-							$e7cb42ac1349db10ce0fd08b421bb3db)));
+					new ArrayList(Arrays.asList("https://dank-site.onrender.com/chatroom-users", "POST",
+							GLOBAL_6613e6c3dc9064e6ad3422610595df88)));
 			return;
 		}
 		if (procedure.equalsIgnoreCase("get_hwid")) {
@@ -191,7 +206,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 				PluginMain.getInstance().getLogger()
 						.info(("HWID: " + String.valueOf(GLOBAL_65e48c28264992f0f46da7786376f6c3)));
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) true);
-			} catch (Exception tqQMCruxgbCLnKis) {
+			} catch (Exception zQFEvvyGfeCFqxlq) {
 				PluginMain.getInstance().getLogger().severe("Failed to get HWID!");
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 			}
@@ -330,7 +345,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 						+ ((java.lang.String) ((org.bukkit.command.CommandSender) (Object) ((org.bukkit.entity.Player) event
 								.getPlayer())).getName()))
 						+ "] > ") + ((java.lang.String) event.getMessage())))));
-			} catch (Exception ujjHPZIpisFauZbK) {
+			} catch (Exception XwAGlWuLgYymkpVv) {
 				PluginMain.getInstance().getLogger().severe("Input Failed!");
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 			}

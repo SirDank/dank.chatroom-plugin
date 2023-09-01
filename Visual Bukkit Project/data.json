@@ -1,7 +1,7 @@
 {
   "plugin.dependencies": "",
   "plugin.load-before": "",
-  "plugin.version": "1.0.1",
+  "plugin.version": "1.0.2",
   "debug-build-mode": false,
   "open-tab": 0,
   "plugin-components": [
@@ -137,72 +137,36 @@
       "parameters": ["get_hwid"]
     },
     {
-      "children": [
-        {
-          "=": "stat-set-local-variable",
-          "parameters": [
-            "compressed",
-            {
-              "=": "expr-function-value",
-              "parameters": [
-                "compress",
-                {
-                  "size": 1,
-                  "=": "expr-new-list",
-                  "parameters": [{
-                    "size": 1,
-                    "=": "expr-combine-strings",
-                    "parameters": [
-                      {
-                        "=": "expr-string",
-                        "parameters": ["{\"uuid\":\""]
-                      },
-                      {
-                        "=": "expr-global-variable",
-                        "parameters": ["hwid"]
-                      },
-                      {
-                        "=": "expr-string",
-                        "parameters": ["\"}"]
-                      }
-                    ]
-                  }]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "=": "stat-set-local-variable",
-          "parameters": [
-            "response",
-            {
-              "=": "expr-function-value",
-              "parameters": [
-                "send_request",
-                {
-                  "size": 3,
-                  "=": "expr-new-list",
-                  "parameters": [
-                    {
-                      "=": "expr-string",
-                      "parameters": ["https://dank-site.onrender.com/chatroom-login"]
-                    },
-                    {
-                      "=": "expr-string",
-                      "parameters": ["POST"]
-                    },
-                    {
-                      "=": "expr-local-variable",
-                      "parameters": ["compressed"]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
+      "children": [{
+        "=": "stat-set-local-variable",
+        "parameters": [
+          "response",
+          {
+            "=": "expr-function-value",
+            "parameters": [
+              "send_request",
+              {
+                "size": 3,
+                "=": "expr-new-list",
+                "parameters": [
+                  {
+                    "=": "expr-string",
+                    "parameters": ["https://dank-site.onrender.com/chatroom-users"]
+                  },
+                  {
+                    "=": "expr-string",
+                    "parameters": ["POST"]
+                  },
+                  {
+                    "=": "expr-global-variable",
+                    "parameters": ["compressed_hwid"]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }],
       "=": "comp-procedure",
       "parameters": ["chatroom_validator"]
     },
@@ -655,6 +619,47 @@
         {
           "children": [
             {
+              "=": "stat-set-global-variable",
+              "parameters": [
+                "compressed_hwid",
+                {
+                  "=": "expr-function-value",
+                  "parameters": [
+                    "compress",
+                    {
+                      "size": 1,
+                      "=": "expr-new-list",
+                      "parameters": [{
+                        "size": 1,
+                        "=": "expr-combine-strings",
+                        "parameters": [
+                          {
+                            "=": "expr-string",
+                            "parameters": ["{\"uuid\":\""]
+                          },
+                          {
+                            "=": "expr-global-variable",
+                            "parameters": ["hwid"]
+                          },
+                          {
+                            "=": "expr-string",
+                            "parameters": ["\"}"]
+                          }
+                        ]
+                      }]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "=": "stat-execute-procedure",
+              "parameters": [
+                "chatroom_login",
+                {"=": "expr-new-list"}
+              ]
+            },
+            {
               "=": "stat-comment",
               "parameters": ["Delay is in ticks! (20t = 1s)"]
             },
@@ -678,7 +683,7 @@
                           "=": "stat-log-error",
                           "parameters": [{
                             "=": "expr-string",
-                            "parameters": ["Failed to login!"]
+                            "parameters": ["Failed to validate!"]
                           }]
                         },
                         {
@@ -949,6 +954,76 @@
         "",
         ""
       ]
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "=": "stat-set-local-variable",
+              "parameters": [
+                "response",
+                {
+                  "=": "expr-function-value",
+                  "parameters": [
+                    "send_request",
+                    {
+                      "size": 3,
+                      "=": "expr-new-list",
+                      "parameters": [
+                        {
+                          "=": "expr-string",
+                          "parameters": ["https://dank-site.onrender.com/chatroom-login"]
+                        },
+                        {
+                          "=": "expr-string",
+                          "parameters": ["POST"]
+                        },
+                        {
+                          "=": "expr-global-variable",
+                          "parameters": ["compressed_hwid"]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "=": "stat-log-info",
+              "parameters": [{
+                "=": "expr-string",
+                "parameters": ["Logged in!"]
+              }]
+            }
+          ],
+          "=": "stat-attempt-execution"
+        },
+        {
+          "children": [
+            {
+              "=": "stat-log-error",
+              "parameters": [{
+                "=": "expr-string",
+                "parameters": ["Failed to login!"]
+              }]
+            },
+            {
+              "=": "stat-set-global-variable",
+              "parameters": [
+                "running",
+                {
+                  "=": "expr-boolean",
+                  "parameters": ["false"]
+                }
+              ]
+            }
+          ],
+          "=": "stat-handle-execution-error"
+        }
+      ],
+      "=": "comp-procedure",
+      "parameters": ["chatroom_login"]
     }
   ],
   "plugin.soft-dependencies": "",
@@ -959,6 +1034,11 @@
   "plugin.author": "SirDank",
   "plugin.description": "Minecraft server integration for the dank.tool's chatroom!",
   "plugin.permissions": "",
-  "open-plugin-components": [0],
+  "open-plugin-components": [
+    14,
+    3,
+    9,
+    0
+  ],
   "plugin.website": "https://github.com/SirDank/dank.chatroom-plugin"
 }
