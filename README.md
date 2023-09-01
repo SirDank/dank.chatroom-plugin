@@ -3,6 +3,10 @@
   <img src="https://profile-counter.glitch.me/dank.chatroom-plugin/count.svg">
 </p>
 
+## ♦️ direct download ♦️
+
+URL: https://github.com/SirDank/dank.chatroom-plugin/raw/main/Visual%20Bukkit%20Project/Build/target/dankchatroom.jar
+
 ## ♦️ dank.chatroom-plugin preview ♦️
 
 <br><p align="center"><img width="400" alt="image" src="https://github.com/SirDank/dank.chatroom-plugin/assets/52797753/965a9702-1485-42f2-86bf-0c476f5b05f1"></p><br>
