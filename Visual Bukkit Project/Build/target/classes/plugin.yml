@@ -1,5 +1,5 @@
 name: "DankChatroom"
-version: "1.0"
+version: "1.0.1"
 main: "vb.$dankchatroom.PluginMain"
 api-version: 1.13
 authors: [SirDank]

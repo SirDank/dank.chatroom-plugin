@@ -1,7 +1,7 @@
 {
   "plugin.dependencies": "",
   "plugin.load-before": "",
-  "plugin.version": "1.0",
+  "plugin.version": "1.0.1",
   "debug-build-mode": false,
   "open-tab": 0,
   "plugin-components": [
@@ -69,7 +69,7 @@
           "children": [
             {
               "=": "stat-java-code",
-              "parameters": ["String os = System.getProperty(\"os.name\").toLowerCase();String command = (os.contains(\"win\")) ? \"wmic csproduct get uuid\" : \"dmidecode -s system-uuid\";Process process = Runtime.getRuntime().exec(command);BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));StringBuilder uuidBuilder = new StringBuilder();String line;while ((line = reader.readLine()) != null) {    uuidBuilder.append(line.trim());}"]
+              "parameters": ["String os = System.getProperty(\"os.name\").toLowerCase();String command = (os.contains(\"win\")) ? \"wmic csproduct get uuid\" : \"sudo dmidecode -s system-uuid\";Process process = Runtime.getRuntime().exec(command);BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));StringBuilder uuidBuilder = new StringBuilder();String line;while ((line = reader.readLine()) != null) {    uuidBuilder.append(line.trim());}"]
             },
             {
               "=": "stat-set-global-variable",
@@ -141,28 +141,34 @@
         {
           "=": "stat-set-local-variable",
           "parameters": [
-            "to_compress",
+            "compressed",
             {
-              "size": 1,
-              "=": "expr-new-list",
-              "parameters": [{
-                "size": 1,
-                "=": "expr-combine-strings",
-                "parameters": [
-                  {
-                    "=": "expr-string",
-                    "parameters": ["{\"uuid\":\""]
-                  },
-                  {
-                    "=": "expr-global-variable",
-                    "parameters": ["hwid"]
-                  },
-                  {
-                    "=": "expr-string",
-                    "parameters": ["\"}"]
-                  }
-                ]
-              }]
+              "=": "expr-function-value",
+              "parameters": [
+                "compress",
+                {
+                  "size": 1,
+                  "=": "expr-new-list",
+                  "parameters": [{
+                    "size": 1,
+                    "=": "expr-combine-strings",
+                    "parameters": [
+                      {
+                        "=": "expr-string",
+                        "parameters": ["{\"uuid\":\""]
+                      },
+                      {
+                        "=": "expr-global-variable",
+                        "parameters": ["hwid"]
+                      },
+                      {
+                        "=": "expr-string",
+                        "parameters": ["\"}"]
+                      }
+                    ]
+                  }]
+                }
+              ]
             }
           ]
         },
@@ -187,14 +193,8 @@
                       "parameters": ["POST"]
                     },
                     {
-                      "=": "expr-function-value",
-                      "parameters": [
-                        "compress",
-                        {
-                          "=": "expr-local-variable",
-                          "parameters": ["to_compress"]
-                        }
-                      ]
+                      "=": "expr-local-variable",
+                      "parameters": ["compressed"]
                     }
                   ]
                 }
@@ -204,7 +204,7 @@
         }
       ],
       "=": "comp-procedure",
-      "parameters": ["chatroom_login"]
+      "parameters": ["chatroom_validator"]
     },
     {
       "children": [{
@@ -258,13 +258,25 @@
             "=": "stat-attempt-execution"
           },
           {
-            "children": [{
-              "=": "stat-log-error",
-              "parameters": [{
-                "=": "expr-string",
-                "parameters": ["Input Failed!"]
-              }]
-            }],
+            "children": [
+              {
+                "=": "stat-log-error",
+                "parameters": [{
+                  "=": "expr-string",
+                  "parameters": ["Input Failed!"]
+                }]
+              },
+              {
+                "=": "stat-set-global-variable",
+                "parameters": [
+                  "running",
+                  {
+                    "=": "expr-boolean",
+                    "parameters": ["false"]
+                  }
+                ]
+              }
+            ],
             "=": "stat-handle-execution-error"
           }
         ],
@@ -294,42 +306,48 @@
         {
           "=": "stat-set-local-variable",
           "parameters": [
-            "to_compress",
+            "compressed",
             {
-              "size": 1,
-              "=": "expr-new-list",
-              "parameters": [{
-                "size": 3,
-                "=": "expr-combine-strings",
-                "parameters": [
-                  {
-                    "=": "expr-string",
-                    "parameters": ["{\"uuid\":\""]
-                  },
-                  {
-                    "=": "expr-global-variable",
-                    "parameters": ["hwid"]
-                  },
-                  {
-                    "=": "expr-string",
-                    "parameters": ["\",\"msg\":\""]
-                  },
-                  {
-                    "=": "java.util.List#get(int)",
+              "=": "expr-function-value",
+              "parameters": [
+                "compress",
+                {
+                  "size": 1,
+                  "=": "expr-new-list",
+                  "parameters": [{
+                    "size": 3,
+                    "=": "expr-combine-strings",
                     "parameters": [
-                      {"=": "expr-procedure-arguments"},
                       {
-                        "=": "expr-number",
-                        "parameters": ["0"]
+                        "=": "expr-string",
+                        "parameters": ["{\"uuid\":\""]
+                      },
+                      {
+                        "=": "expr-global-variable",
+                        "parameters": ["hwid"]
+                      },
+                      {
+                        "=": "expr-string",
+                        "parameters": ["\",\"msg\":\""]
+                      },
+                      {
+                        "=": "java.util.List#get(int)",
+                        "parameters": [
+                          {"=": "expr-procedure-arguments"},
+                          {
+                            "=": "expr-number",
+                            "parameters": ["0"]
+                          }
+                        ]
+                      },
+                      {
+                        "=": "expr-string",
+                        "parameters": ["\"}"]
                       }
                     ]
-                  },
-                  {
-                    "=": "expr-string",
-                    "parameters": ["\"}"]
-                  }
-                ]
-              }]
+                  }]
+                }
+              ]
             }
           ]
         },
@@ -354,14 +372,8 @@
                       "parameters": ["POST"]
                     },
                     {
-                      "=": "expr-function-value",
-                      "parameters": [
-                        "compress",
-                        {
-                          "=": "expr-local-variable",
-                          "parameters": ["to_compress"]
-                        }
-                      ]
+                      "=": "expr-local-variable",
+                      "parameters": ["compressed"]
                     }
                   ]
                 }
@@ -378,76 +390,82 @@
         {
           "=": "stat-set-local-variable",
           "parameters": [
-            "to_compress",
+            "compressed",
             {
-              "size": 1,
-              "=": "expr-new-list",
-              "parameters": [{
-                "size": 3,
-                "=": "expr-combine-strings",
-                "parameters": [
-                  {
-                    "=": "expr-string",
-                    "parameters": ["{\"uuid\":\""]
-                  },
-                  {
-                    "=": "expr-global-variable",
-                    "parameters": ["hwid"]
-                  },
-                  {
-                    "=": "expr-string",
-                    "parameters": ["\",\"msg_id\":\""]
-                  },
-                  {
-                    "=": "expr-global-variable",
-                    "parameters": ["printed_msg_id"]
-                  },
-                  {
-                    "=": "expr-string",
-                    "parameters": ["\"}"]
-                  }
-                ]
-              }]
+              "=": "expr-function-value",
+              "parameters": [
+                "compress",
+                {
+                  "size": 1,
+                  "=": "expr-new-list",
+                  "parameters": [{
+                    "size": 3,
+                    "=": "expr-combine-strings",
+                    "parameters": [
+                      {
+                        "=": "expr-string",
+                        "parameters": ["{\"uuid\":\""]
+                      },
+                      {
+                        "=": "expr-global-variable",
+                        "parameters": ["hwid"]
+                      },
+                      {
+                        "=": "expr-string",
+                        "parameters": ["\",\"msg_id\":\""]
+                      },
+                      {
+                        "=": "expr-global-variable",
+                        "parameters": ["printed_msg_id"]
+                      },
+                      {
+                        "=": "expr-string",
+                        "parameters": ["\"}"]
+                      }
+                    ]
+                  }]
+                }
+              ]
             }
           ]
         },
         {
           "=": "stat-set-local-variable",
           "parameters": [
-            "to_decompress",
+            "decompressed",
             {
-              "size": 1,
-              "=": "expr-new-list",
-              "parameters": [{
-                "=": "expr-function-value",
-                "parameters": [
-                  "send_request",
-                  {
-                    "size": 3,
-                    "=": "expr-new-list",
+              "=": "expr-function-value",
+              "parameters": [
+                "decompress",
+                {
+                  "size": 1,
+                  "=": "expr-new-list",
+                  "parameters": [{
+                    "=": "expr-function-value",
                     "parameters": [
+                      "send_request",
                       {
-                        "=": "expr-string",
-                        "parameters": ["https://dank-site.onrender.com/chatroom"]
-                      },
-                      {
-                        "=": "expr-string",
-                        "parameters": ["GET"]
-                      },
-                      {
-                        "=": "expr-function-value",
+                        "size": 3,
+                        "=": "expr-new-list",
                         "parameters": [
-                          "compress",
+                          {
+                            "=": "expr-string",
+                            "parameters": ["https://dank-site.onrender.com/chatroom"]
+                          },
+                          {
+                            "=": "expr-string",
+                            "parameters": ["GET"]
+                          },
                           {
                             "=": "expr-local-variable",
-                            "parameters": ["to_compress"]
+                            "parameters": ["compressed"]
                           }
                         ]
                       }
                     ]
-                  }
-                ]
-              }]
+                  }]
+                }
+              ]
             }
           ]
         },
@@ -463,14 +481,8 @@
                   "size": 1,
                   "=": "expr-new-list",
                   "parameters": [{
-                    "=": "expr-function-value",
-                    "parameters": [
-                      "decompress",
-                      {
-                        "=": "expr-local-variable",
-                        "parameters": ["to_decompress"]
-                      }
-                    ]
+                    "=": "expr-local-variable",
+                    "parameters": ["decompressed"]
                   }]
                 }
               ]
@@ -498,7 +510,7 @@
         },
         {
           "=": "stat-comment",
-          "parameters": ["Only use REPLACE below!"]
+          "parameters": ["Use only REPLACE below!"]
         },
         {
           "=": "stat-set-local-variable",
@@ -514,26 +526,39 @@
                       "=": "java.lang.String#replace(java.lang.CharSequence,java.lang.CharSequence)",
                       "parameters": [
                         {
-                          "=": "expr-local-variable",
-                          "parameters": ["chat"]
+                          "=": "java.lang.String#replace(java.lang.CharSequence,java.lang.CharSequence)",
+                          "parameters": [
+                            {
+                              "=": "expr-local-variable",
+                              "parameters": ["chat"]
+                            },
+                            {
+                              "=": "expr-string",
+                              "parameters": ["["]
+                            },
+                            {
+                              "=": "expr-string",
+                              "parameters": ["&6[&c"]
+                            }
+                          ]
                         },
                         {
                           "=": "expr-string",
-                          "parameters": ["["]
+                          "parameters": ["]"]
                         },
                         {
                           "=": "expr-string",
-                          "parameters": ["&6[&c"]
+                          "parameters": ["&6]&b"]
                         }
                       ]
                     },
                     {
                       "=": "expr-string",
-                      "parameters": ["] >"]
+                      "parameters": [">"]
                     },
                     {
                       "=": "expr-string",
-                      "parameters": ["&6] ➤&b"]
+                      "parameters": ["&6➤&b"]
                     }
                   ]
                 },
@@ -630,96 +655,145 @@
         {
           "children": [
             {
-              "children": [{
-                "=": "stat-execute-procedure",
-                "parameters": [
-                  "chatroom_login",
-                  {"=": "expr-new-list"}
-                ]
-              }],
-              "=": "stat-attempt-execution"
+              "=": "stat-comment",
+              "parameters": ["Delay is in ticks! (20t = 1s)"]
             },
             {
               "children": [
                 {
-                  "=": "stat-log-error",
-                  "parameters": [{
-                    "=": "expr-string",
-                    "parameters": ["Failed to login!"]
-                  }]
+                  "children": [
+                    {
+                      "children": [{
+                        "=": "stat-execute-procedure",
+                        "parameters": [
+                          "chatroom_validator",
+                          {"=": "expr-new-list"}
+                        ]
+                      }],
+                      "=": "stat-attempt-execution"
+                    },
+                    {
+                      "children": [
+                        {
+                          "=": "stat-log-error",
+                          "parameters": [{
+                            "=": "expr-string",
+                            "parameters": ["Failed to login!"]
+                          }]
+                        },
+                        {
+                          "=": "stat-set-global-variable",
+                          "parameters": [
+                            "running",
+                            {
+                              "=": "expr-boolean",
+                              "parameters": ["false"]
+                            }
+                          ]
+                        },
+                        {"=": "stat-cancel-scheduled-task"}
+                      ],
+                      "=": "stat-handle-execution-error"
+                    }
+                  ],
+                  "=": "stat-if-statement",
+                  "parameters": [
+                    {
+                      "=": "expr-is-equal",
+                      "parameters": [
+                        {
+                          "=": "expr-global-variable",
+                          "parameters": ["running"]
+                        },
+                        {
+                          "=": "expr-boolean",
+                          "parameters": ["true"]
+                        }
+                      ]
+                    },
+                    "normal"
+                  ]
                 },
                 {
-                  "=": "stat-set-global-variable",
-                  "parameters": [
-                    "running",
-                    {
-                      "=": "expr-boolean",
-                      "parameters": ["false"]
-                    }
-                  ]
+                  "children": [{"=": "stat-cancel-scheduled-task"}],
+                  "=": "stat-else-statement"
                 }
               ],
-              "=": "stat-handle-execution-error"
+              "=": "stat-schedule-task",
+              "parameters": [
+                "async",
+                "repeat",
+                {
+                  "=": "expr-number",
+                  "parameters": ["12000"]
+                }
+              ]
             },
             {
               "=": "stat-comment",
               "parameters": ["Delay is in ticks! (20t = 1s)"]
             },
             {
-              "children": [{
-                "children": [
-                  {
-                    "children": [{
-                      "=": "stat-execute-procedure",
-                      "parameters": [
-                        "chatroom_grabber",
-                        {"=": "expr-new-list"}
-                      ]
-                    }],
-                    "=": "stat-attempt-execution"
-                  },
-                  {
-                    "children": [
-                      {
-                        "=": "stat-log-error",
-                        "parameters": [{
-                          "=": "expr-string",
-                          "parameters": ["Failed to get chat!"]
-                        }]
-                      },
-                      {
-                        "=": "stat-set-global-variable",
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [{
+                        "=": "stat-execute-procedure",
                         "parameters": [
-                          "running",
-                          {
-                            "=": "expr-boolean",
-                            "parameters": ["false"]
-                          }
+                          "chatroom_grabber",
+                          {"=": "expr-new-list"}
                         ]
-                      },
-                      {"=": "stat-cancel-scheduled-task"}
-                    ],
-                    "=": "stat-handle-execution-error"
-                  }
-                ],
-                "=": "stat-if-statement",
-                "parameters": [
-                  {
-                    "=": "expr-is-equal",
-                    "parameters": [
-                      {
-                        "=": "expr-global-variable",
-                        "parameters": ["running"]
-                      },
-                      {
-                        "=": "expr-boolean",
-                        "parameters": ["true"]
-                      }
-                    ]
-                  },
-                  "normal"
-                ]
-              }],
+                      }],
+                      "=": "stat-attempt-execution"
+                    },
+                    {
+                      "children": [
+                        {
+                          "=": "stat-log-error",
+                          "parameters": [{
+                            "=": "expr-string",
+                            "parameters": ["Failed to get chat!"]
+                          }]
+                        },
+                        {
+                          "=": "stat-set-global-variable",
+                          "parameters": [
+                            "running",
+                            {
+                              "=": "expr-boolean",
+                              "parameters": ["false"]
+                            }
+                          ]
+                        },
+                        {"=": "stat-cancel-scheduled-task"}
+                      ],
+                      "=": "stat-handle-execution-error"
+                    }
+                  ],
+                  "=": "stat-if-statement",
+                  "parameters": [
+                    {
+                      "=": "expr-is-equal",
+                      "parameters": [
+                        {
+                          "=": "expr-global-variable",
+                          "parameters": ["running"]
+                        },
+                        {
+                          "=": "expr-boolean",
+                          "parameters": ["true"]
+                        }
+                      ]
+                    },
+                    "normal"
+                  ]
+                },
+                {
+                  "children": [{"=": "stat-cancel-scheduled-task"}],
+                  "=": "stat-else-statement"
+                }
+              ],
               "=": "stat-schedule-task",
               "parameters": [
                 "async",
