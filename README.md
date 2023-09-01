@@ -3,6 +3,10 @@
   <img src="https://profile-counter.glitch.me/dank.chatroom-plugin/count.svg">
 </p>
 
+## ♦️ features ♦️
+
+- Seemlessly connect one server's chat with another!
+
 ## ♦️ direct download ♦️
 
 URL: https://github.com/SirDank/dank.chatroom-plugin/raw/main/Visual%20Bukkit%20Project/Build/target/dankchatroom.jar
