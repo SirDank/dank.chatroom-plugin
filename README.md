@@ -35,3 +35,7 @@ URL: https://github.com/SirDank/dank.chatroom-plugin/raw/main/Visual%20Bukkit%20
 ## ♦️ bStats ♦️
 
 <br><p align="center">[![BStats Metrics](https://bstats.org/signatures/bukkit/dank-chatroom.svg)](https://bstats.org/plugin/bukkit/dank-chatroom/19689)</p><br>
+
+## ♦️ Also check out dank.resourcepack! ♦️
+
+- https://github.com/SirDank/dank.resource-pack
