@@ -1,9 +1,9 @@
 {
   "plugin.dependencies": "",
   "plugin.load-before": "",
-  "plugin.version": "1.0.2",
+  "plugin.version": "1.0.3",
   "debug-build-mode": false,
-  "open-tab": 0,
+  "open-tab": -1,
   "plugin-components": [
     {
       "children": [
@@ -266,172 +266,82 @@
       "parameters": ["NORMAL"]
     },
     {
-      "children": [
-        {
-          "=": "stat-set-local-variable",
-          "parameters": [
-            "compressed",
-            {
-              "=": "expr-function-value",
-              "parameters": [
-                "compress",
-                {
-                  "size": 1,
-                  "=": "expr-new-list",
-                  "parameters": [{
-                    "size": 3,
-                    "=": "expr-combine-strings",
+      "children": [{
+        "=": "stat-set-local-variable",
+        "parameters": [
+          "response",
+          {
+            "=": "expr-function-value",
+            "parameters": [
+              "send_request",
+              {
+                "size": 3,
+                "=": "expr-new-list",
+                "parameters": [
+                  {
+                    "=": "expr-string",
+                    "parameters": ["https://dank-site.onrender.com/chatroom"]
+                  },
+                  {
+                    "=": "expr-string",
+                    "parameters": ["POST"]
+                  },
+                  {
+                    "=": "expr-function-value",
                     "parameters": [
+                      "compress",
                       {
-                        "=": "expr-string",
-                        "parameters": ["{\"uuid\":\""]
-                      },
-                      {
-                        "=": "expr-global-variable",
-                        "parameters": ["hwid"]
-                      },
-                      {
-                        "=": "expr-string",
-                        "parameters": ["\",\"msg\":\""]
-                      },
-                      {
-                        "=": "java.util.List#get(int)",
-                        "parameters": [
-                          {"=": "expr-procedure-arguments"},
-                          {
-                            "=": "expr-number",
-                            "parameters": ["0"]
-                          }
-                        ]
-                      },
-                      {
-                        "=": "expr-string",
-                        "parameters": ["\"}"]
+                        "size": 1,
+                        "=": "expr-new-list",
+                        "parameters": [{
+                          "size": 3,
+                          "=": "expr-combine-strings",
+                          "parameters": [
+                            {
+                              "=": "expr-string",
+                              "parameters": ["{\"uuid\":\""]
+                            },
+                            {
+                              "=": "expr-global-variable",
+                              "parameters": ["hwid"]
+                            },
+                            {
+                              "=": "expr-string",
+                              "parameters": ["\",\"msg\":\""]
+                            },
+                            {
+                              "=": "java.util.List#get(int)",
+                              "parameters": [
+                                {"=": "expr-procedure-arguments"},
+                                {
+                                  "=": "expr-number",
+                                  "parameters": ["0"]
+                                }
+                              ]
+                            },
+                            {
+                              "=": "expr-string",
+                              "parameters": ["\"}"]
+                            }
+                          ]
+                        }]
                       }
                     ]
-                  }]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "=": "stat-set-local-variable",
-          "parameters": [
-            "response",
-            {
-              "=": "expr-function-value",
-              "parameters": [
-                "send_request",
-                {
-                  "size": 3,
-                  "=": "expr-new-list",
-                  "parameters": [
-                    {
-                      "=": "expr-string",
-                      "parameters": ["https://dank-site.onrender.com/chatroom"]
-                    },
-                    {
-                      "=": "expr-string",
-                      "parameters": ["POST"]
-                    },
-                    {
-                      "=": "expr-local-variable",
-                      "parameters": ["compressed"]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }],
       "=": "comp-procedure",
       "parameters": ["chatroom_input"]
     },
     {
       "children": [
         {
-          "=": "stat-set-local-variable",
-          "parameters": [
-            "compressed",
-            {
-              "=": "expr-function-value",
-              "parameters": [
-                "compress",
-                {
-                  "size": 1,
-                  "=": "expr-new-list",
-                  "parameters": [{
-                    "size": 3,
-                    "=": "expr-combine-strings",
-                    "parameters": [
-                      {
-                        "=": "expr-string",
-                        "parameters": ["{\"uuid\":\""]
-                      },
-                      {
-                        "=": "expr-global-variable",
-                        "parameters": ["hwid"]
-                      },
-                      {
-                        "=": "expr-string",
-                        "parameters": ["\",\"msg_id\":\""]
-                      },
-                      {
-                        "=": "expr-global-variable",
-                        "parameters": ["printed_msg_id"]
-                      },
-                      {
-                        "=": "expr-string",
-                        "parameters": ["\"}"]
-                      }
-                    ]
-                  }]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "=": "stat-set-local-variable",
-          "parameters": [
-            "decompressed",
-            {
-              "=": "expr-function-value",
-              "parameters": [
-                "decompress",
-                {
-                  "size": 1,
-                  "=": "expr-new-list",
-                  "parameters": [{
-                    "=": "expr-function-value",
-                    "parameters": [
-                      "send_request",
-                      {
-                        "size": 3,
-                        "=": "expr-new-list",
-                        "parameters": [
-                          {
-                            "=": "expr-string",
-                            "parameters": ["https://dank-site.onrender.com/chatroom"]
-                          },
-                          {
-                            "=": "expr-string",
-                            "parameters": ["GET"]
-                          },
-                          {
-                            "=": "expr-local-variable",
-                            "parameters": ["compressed"]
-                          }
-                        ]
-                      }
-                    ]
-                  }]
-                }
-              ]
-            }
-          ]
+          "=": "stat-comment",
+          "parameters": ["keep response_mapped!"]
         },
         {
           "=": "stat-set-local-variable",
@@ -445,28 +355,71 @@
                   "size": 1,
                   "=": "expr-new-list",
                   "parameters": [{
-                    "=": "expr-local-variable",
-                    "parameters": ["decompressed"]
+                    "=": "expr-function-value",
+                    "parameters": [
+                      "decompress",
+                      {
+                        "size": 1,
+                        "=": "expr-new-list",
+                        "parameters": [{
+                          "=": "expr-function-value",
+                          "parameters": [
+                            "send_request",
+                            {
+                              "size": 3,
+                              "=": "expr-new-list",
+                              "parameters": [
+                                {
+                                  "=": "expr-string",
+                                  "parameters": ["https://dank-site.onrender.com/chatroom"]
+                                },
+                                {
+                                  "=": "expr-string",
+                                  "parameters": ["GET"]
+                                },
+                                {
+                                  "=": "expr-function-value",
+                                  "parameters": [
+                                    "compress",
+                                    {
+                                      "size": 1,
+                                      "=": "expr-new-list",
+                                      "parameters": [{
+                                        "size": 3,
+                                        "=": "expr-combine-strings",
+                                        "parameters": [
+                                          {
+                                            "=": "expr-string",
+                                            "parameters": ["{\"uuid\":\""]
+                                          },
+                                          {
+                                            "=": "expr-global-variable",
+                                            "parameters": ["hwid"]
+                                          },
+                                          {
+                                            "=": "expr-string",
+                                            "parameters": ["\",\"msg_id\":\""]
+                                          },
+                                          {
+                                            "=": "expr-global-variable",
+                                            "parameters": ["printed_msg_id"]
+                                          },
+                                          {
+                                            "=": "expr-string",
+                                            "parameters": ["\"}"]
+                                          }
+                                        ]
+                                      }]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }]
+                      }
+                    ]
                   }]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "=": "stat-set-local-variable",
-          "parameters": [
-            "chat",
-            {
-              "=": "java.util.HashMap#get(java.lang.Object)",
-              "parameters": [
-                {
-                  "=": "expr-local-variable",
-                  "parameters": ["response_mapped"]
-                },
-                {
-                  "=": "expr-string",
-                  "parameters": ["chat"]
                 }
               ]
             }
@@ -493,8 +446,30 @@
                           "=": "java.lang.String#replace(java.lang.CharSequence,java.lang.CharSequence)",
                           "parameters": [
                             {
-                              "=": "expr-local-variable",
-                              "parameters": ["chat"]
+                              "=": "java.lang.String#replace(java.lang.CharSequence,java.lang.CharSequence)",
+                              "parameters": [
+                                {
+                                  "=": "java.util.HashMap#get(java.lang.Object)",
+                                  "parameters": [
+                                    {
+                                      "=": "expr-local-variable",
+                                      "parameters": ["response_mapped"]
+                                    },
+                                    {
+                                      "=": "expr-string",
+                                      "parameters": ["chat"]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "=": "expr-string",
+                                  "parameters": ["[SirDank]"]
+                                },
+                                {
+                                  "=": "expr-string",
+                                  "parameters": ["[&4SirDank]"]
+                                }
+                              ]
                             },
                             {
                               "=": "expr-string",
@@ -595,7 +570,7 @@
         }
       ],
       "=": "comp-procedure",
-      "parameters": ["chatroom_grabber"]
+      "parameters": ["chatroom_grabber_and_output"]
     },
     {
       "children": [
@@ -746,7 +721,7 @@
                       "children": [{
                         "=": "stat-execute-procedure",
                         "parameters": [
-                          "chatroom_grabber",
+                          "chatroom_grabber_and_output",
                           {"=": "expr-new-list"}
                         ]
                       }],
@@ -880,13 +855,25 @@
           ]
         },
         {
-          "children": [{
-            "=": "stat-execute-procedure",
-            "parameters": [
-              "chatroom_enabler",
-              {"=": "expr-new-list"}
-            ]
-          }],
+          "children": [
+            {
+              "=": "stat-execute-procedure",
+              "parameters": [
+                "chatroom_enabler",
+                {"=": "expr-new-list"}
+              ]
+            },
+            {
+              "=": "org.bukkit.command.CommandSender#sendMessage(java.lang.String)",
+              "parameters": [
+                {"=": "expr-command-sender"},
+                {
+                  "=": "expr-string",
+                  "parameters": ["&6[&cdank&6.&cserver&6] ➤ &bTrying to connect&6..."]
+                }
+              ]
+            }
+          ],
           "=": "stat-else-statement"
         }
       ],
@@ -903,16 +890,28 @@
     {
       "children": [
         {
-          "children": [{
-            "=": "stat-set-global-variable",
-            "parameters": [
-              "running",
-              {
-                "=": "expr-boolean",
-                "parameters": ["false"]
-              }
-            ]
-          }],
+          "children": [
+            {
+              "=": "stat-set-global-variable",
+              "parameters": [
+                "running",
+                {
+                  "=": "expr-boolean",
+                  "parameters": ["false"]
+                }
+              ]
+            },
+            {
+              "=": "org.bukkit.command.CommandSender#sendMessage(java.lang.String)",
+              "parameters": [
+                {"=": "expr-command-sender"},
+                {
+                  "=": "expr-string",
+                  "parameters": ["&6[&cdank&6.&cserver&6] ➤ &bYou have been disconnected&6!"]
+                }
+              ]
+            }
+          ],
           "=": "stat-if-statement",
           "parameters": [
             {
@@ -1029,16 +1028,10 @@
   "plugin.soft-dependencies": "",
   "plugin.name": "DankChatroom",
   "plugin.prefix": "dank.chatroom",
-  "current-plugin-component": 0,
+  "current-plugin-component": -1,
   "extensions": ["bStats"],
   "plugin.author": "SirDank",
   "plugin.description": "Minecraft server integration for the dank.tool's chatroom!",
   "plugin.permissions": "",
-  "open-plugin-components": [
-    14,
-    3,
-    9,
-    0
-  ],
   "plugin.website": "https://github.com/SirDank/dank.chatroom-plugin"
 }
