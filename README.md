@@ -16,6 +16,10 @@
 
 URL: https://github.com/SirDank/dank.chatroom-plugin/raw/main/Visual%20Bukkit%20Project/Build/target/dankchatroom.jar
 
+## ♦️ diagram ♦️
+
+<br><p align="center"><img width="800" alt="image" src="https://github.com/SirDank/dank.chatroom-plugin/assets/52797753/bdc4ebc0-2028-4b13-8967-b09be943b9d9"></p><br>
+
 ## ♦️ dank.chatroom-plugin preview ♦️
 
 <br><p align="center"><img width="400" alt="image" src="https://github.com/SirDank/dank.chatroom-plugin/assets/52797753/965a9702-1485-42f2-86bf-0c476f5b05f1"></p><br>
