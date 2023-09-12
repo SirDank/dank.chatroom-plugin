@@ -1,9 +1,9 @@
 {
   "plugin.dependencies": "",
   "plugin.load-before": "",
-  "plugin.version": "1.0.3",
+  "plugin.version": "1.0.4",
   "debug-build-mode": false,
-  "open-tab": -1,
+  "open-tab": 1,
   "plugin-components": [
     {
       "children": [
@@ -19,10 +19,60 @@
           }]
         },
         {
-          "=": "stat-execute-procedure",
+          "=": "stat-set-global-variable",
           "parameters": [
-            "chatroom_enabler",
-            {"=": "expr-new-list"}
+            "printed_msg_id",
+            {
+              "=": "expr-number",
+              "parameters": ["0"]
+            }
+          ]
+        },
+        {
+          "=": "stat-set-global-variable",
+          "parameters": [
+            "running",
+            {
+              "=": "expr-boolean",
+              "parameters": ["false"]
+            }
+          ]
+        },
+        {
+          "children": [{
+            "children": [{
+              "=": "stat-execute-procedure",
+              "parameters": [
+                "chatroom_enabler",
+                {"=": "expr-new-list"}
+              ]
+            }],
+            "=": "stat-if-statement",
+            "parameters": [
+              {
+                "=": "expr-is-equal",
+                "parameters": [
+                  {
+                    "=": "expr-global-variable",
+                    "parameters": ["running"]
+                  },
+                  {
+                    "=": "expr-boolean",
+                    "parameters": ["false"]
+                  }
+                ]
+              },
+              "normal"
+            ]
+          }],
+          "=": "stat-schedule-task",
+          "parameters": [
+            "async",
+            "repeat",
+            {
+              "=": "expr-number",
+              "parameters": ["18000"]
+            }
           ]
         },
         {
@@ -575,16 +625,6 @@
     {
       "children": [
         {
-          "=": "stat-set-global-variable",
-          "parameters": [
-            "printed_msg_id",
-            {
-              "=": "expr-number",
-              "parameters": ["0"]
-            }
-          ]
-        },
-        {
           "=": "stat-execute-procedure",
           "parameters": [
             "get_hwid",
@@ -1028,10 +1068,15 @@
   "plugin.soft-dependencies": "",
   "plugin.name": "DankChatroom",
   "plugin.prefix": "dank.chatroom",
-  "current-plugin-component": -1,
+  "current-plugin-component": 1,
   "extensions": ["bStats"],
   "plugin.author": "SirDank",
   "plugin.description": "Minecraft server integration for the dank.tool's chatroom!",
   "plugin.permissions": "",
+  "open-plugin-components": [
+    2,
+    0,
+    9
+  ],
   "plugin.website": "https://github.com/SirDank/dank.chatroom-plugin"
 }
