@@ -1,7 +1,7 @@
 {
   "plugin.dependencies": "",
   "plugin.load-before": "",
-  "plugin.version": "1.0.4",
+  "plugin.version": "1.0.5",
   "debug-build-mode": false,
   "open-tab": 1,
   "plugin-components": [
@@ -594,6 +594,20 @@
                   ]
                 }
               ]
+            },
+            {
+              "=": "stat-comment",
+              "parameters": ["Delay is in ticks! (20t = 1s)"]
+            },
+            {
+              "=": "stat-set-global-variable",
+              "parameters": [
+                "sleep_time",
+                {
+                  "=": "expr-number",
+                  "parameters": ["100"]
+                }
+              ]
             }
           ],
           "=": "stat-if-statement",
@@ -617,6 +631,52 @@
             },
             "negate condition"
           ]
+        },
+        {
+          "children": [
+            {
+              "=": "stat-comment",
+              "parameters": ["Delay is in ticks! (20t = 1s)"]
+            },
+            {
+              "=": "stat-set-global-variable",
+              "parameters": [
+                "sleep_time",
+                {
+                  "=": "expr-arithmetic",
+                  "parameters": [
+                    {
+                      "=": "expr-global-variable",
+                      "parameters": ["sleep_time"]
+                    },
+                    "+",
+                    {
+                      "=": "expr-number",
+                      "parameters": ["4"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "=": "stat-else-if-statement",
+          "parameters": [
+            {
+              "=": "expr-inequality",
+              "parameters": [
+                {
+                  "=": "expr-global-variable",
+                  "parameters": ["sleep_time"]
+                },
+                "<",
+                {
+                  "=": "expr-number",
+                  "parameters": ["1200"]
+                }
+              ]
+            },
+            "normal"
+          ]
         }
       ],
       "=": "comp-procedure",
@@ -624,6 +684,16 @@
     },
     {
       "children": [
+        {
+          "=": "stat-set-global-variable",
+          "parameters": [
+            "sleep_time",
+            {
+              "=": "expr-number",
+              "parameters": ["100"]
+            }
+          ]
+        },
         {
           "=": "stat-execute-procedure",
           "parameters": [
@@ -819,8 +889,8 @@
                 "async",
                 "repeat",
                 {
-                  "=": "expr-number",
-                  "parameters": ["100"]
+                  "=": "expr-global-variable",
+                  "parameters": ["sleep_time"]
                 }
               ]
             }
@@ -872,7 +942,7 @@
               {"=": "expr-command-sender"},
               {
                 "=": "expr-string",
-                "parameters": ["&6[&cdank&6.&cserver&6] ➤ &bYou are already connected&6!"]
+                "parameters": ["&6[&cdank&6.&cserver&6] ➤ &cYou are already connected&6!"]
               }
             ]
           }],
@@ -909,7 +979,7 @@
                 {"=": "expr-command-sender"},
                 {
                   "=": "expr-string",
-                  "parameters": ["&6[&cdank&6.&cserver&6] ➤ &bTrying to connect&6..."]
+                  "parameters": ["&6[&cdank&6.&cserver&6] ➤ &cTrying to connect&6..."]
                 }
               ]
             }
@@ -947,7 +1017,7 @@
                 {"=": "expr-command-sender"},
                 {
                   "=": "expr-string",
-                  "parameters": ["&6[&cdank&6.&cserver&6] ➤ &bYou have been disconnected&6!"]
+                  "parameters": ["&6[&cdank&6.&cserver&6] ➤ &cYou have been disconnected&6!"]
                 }
               ]
             }
@@ -977,7 +1047,7 @@
               {"=": "expr-command-sender"},
               {
                 "=": "expr-string",
-                "parameters": ["&6[&cdank&6.&cserver&6] ➤ &bYou are already disconnected&6!"]
+                "parameters": ["&6[&cdank&6.&cserver&6] ➤ &cYou are already disconnected&6!"]
               }
             ]
           }],
@@ -1074,8 +1144,7 @@
   "plugin.description": "Minecraft server integration for the dank.tool's chatroom!",
   "plugin.permissions": "",
   "open-plugin-components": [
-    2,
-    0,
+    8,
     9
   ],
   "plugin.website": "https://github.com/SirDank/dank.chatroom-plugin"

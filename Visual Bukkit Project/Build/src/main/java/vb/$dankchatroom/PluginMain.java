@@ -15,6 +15,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 	public static Object GLOBAL_9ce148715491d15c729aff6847d37f60;
 	public static Object GLOBAL_65e48c28264992f0f46da7786376f6c3;
 	public static Object GLOBAL_6613e6c3dc9064e6ad3422610595df88;
+	public static Object GLOBAL_d92cf494435f80e45b01635d54d1c17f;
 
 	@Override
 	public void onEnable() {
@@ -62,10 +63,10 @@ public class PluginMain extends JavaPlugin implements Listener {
 						((java.lang.Object) (Object) true))) {
 					PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&6[&cdank&6.&cserver&6] \u27A4 &bYou have been disconnected&6!"));
+							"&6[&cdank&6.&cserver&6] \u27A4 &cYou have been disconnected&6!"));
 				} else {
 					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&6[&cdank&6.&cserver&6] \u27A4 &bYou are already disconnected&6!"));
+							"&6[&cdank&6.&cserver&6] \u27A4 &cYou are already disconnected&6!"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -77,11 +78,11 @@ public class PluginMain extends JavaPlugin implements Listener {
 				if (PluginMain.checkEquals(GLOBAL_9ce148715491d15c729aff6847d37f60,
 						((java.lang.Object) (Object) true))) {
 					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&6[&cdank&6.&cserver&6] \u27A4 &bYou are already connected&6!"));
+							"&6[&cdank&6.&cserver&6] \u27A4 &cYou are already connected&6!"));
 				} else {
 					PluginMain.procedure("chatroom_enabler", new ArrayList());
 					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&6[&cdank&6.&cserver&6] \u27A4 &bTrying to connect&6..."));
+							"&6[&cdank&6.&cserver&6] \u27A4 &cTrying to connect&6..."));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -99,13 +100,14 @@ public class PluginMain extends JavaPlugin implements Listener {
 						new ArrayList(Arrays.asList("https://dank-site.onrender.com/chatroom-login", "POST",
 								GLOBAL_6613e6c3dc9064e6ad3422610595df88)));
 				PluginMain.getInstance().getLogger().info("Logged in!");
-			} catch (Exception AloYQAqZuCgBcXBG) {
+			} catch (Exception opYbrseqSDNRyeva) {
 				PluginMain.getInstance().getLogger().severe("Failed to login!");
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 			}
 			return;
 		}
 		if (procedure.equalsIgnoreCase("chatroom_enabler")) {
+			PluginMain.GLOBAL_d92cf494435f80e45b01635d54d1c17f = ((java.lang.Object) (Object) (100d));
 			PluginMain.procedure("get_hwid", new ArrayList());
 			if (PluginMain.checkEquals(GLOBAL_9ce148715491d15c729aff6847d37f60, ((java.lang.Object) (Object) true))) {
 				PluginMain.GLOBAL_6613e6c3dc9064e6ad3422610595df88 = PluginMain.function("compress",
@@ -119,7 +121,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 									((java.lang.Object) (Object) true))) {
 								try {
 									PluginMain.procedure("chatroom_validator", new ArrayList());
-								} catch (Exception WJBYownISGWIsrAZ) {
+								} catch (Exception jxbnpJyhvKaFvtlz) {
 									PluginMain.getInstance().getLogger().severe("Failed to validate!");
 									PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 									cancel();
@@ -139,7 +141,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 									((java.lang.Object) (Object) true))) {
 								try {
 									PluginMain.procedure("chatroom_grabber_and_output", new ArrayList());
-								} catch (Exception hKhULVvrOTQxwoxs) {
+								} catch (Exception jZSqAixvHcBWNPtc) {
 									PluginMain.getInstance().getLogger().severe("Failed to get chat!");
 									PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 									cancel();
@@ -151,7 +153,8 @@ public class PluginMain extends JavaPlugin implements Listener {
 							ex.printStackTrace();
 						}
 					}
-				}.runTaskTimerAsynchronously(PluginMain.getInstance(), 0, ((long) (100d)));
+				}.runTaskTimerAsynchronously(PluginMain.getInstance(), 0,
+						((Number) GLOBAL_d92cf494435f80e45b01635d54d1c17f).longValue());
 			}
 			return;
 		}
@@ -192,6 +195,10 @@ public class PluginMain extends JavaPlugin implements Listener {
 				}
 				PluginMain.GLOBAL_54bc2ca21fe9f603fdf50a6cae5269ec = ((java.lang.Object) ((java.util.HashMap) (Object) $b979d3536be72c6fde1bea3ac6314886)
 						.get("msg_id"));
+				PluginMain.GLOBAL_d92cf494435f80e45b01635d54d1c17f = ((java.lang.Object) (Object) (100d));
+			} else if ((((Number) GLOBAL_d92cf494435f80e45b01635d54d1c17f).doubleValue() < (1200d))) {
+				PluginMain.GLOBAL_d92cf494435f80e45b01635d54d1c17f = ((java.lang.Object) (Object) (((Number) GLOBAL_d92cf494435f80e45b01635d54d1c17f)
+						.doubleValue() + (4d)));
 			}
 			return;
 		}
@@ -229,7 +236,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 				PluginMain.getInstance().getLogger()
 						.info(("HWID: " + String.valueOf(GLOBAL_65e48c28264992f0f46da7786376f6c3)));
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) true);
-			} catch (Exception ESihbGaMZZRWTJtp) {
+			} catch (Exception QmNyXkBszBvWsfuc) {
 				PluginMain.getInstance().getLogger().severe("Failed to get HWID!");
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 			}
@@ -368,7 +375,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 						+ ((java.lang.String) ((org.bukkit.command.CommandSender) (Object) ((org.bukkit.entity.Player) event
 								.getPlayer())).getName()))
 						+ "] > ") + ((java.lang.String) event.getMessage())))));
-			} catch (Exception BFCfomlfTzpXNbYl) {
+			} catch (Exception YVzEZUHAbgOgdKjG) {
 				PluginMain.getInstance().getLogger().severe("Input Failed!");
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 			}
