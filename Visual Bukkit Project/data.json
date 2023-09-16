@@ -1,9 +1,9 @@
 {
   "plugin.dependencies": "",
   "plugin.load-before": "",
-  "plugin.version": "1.0.5",
+  "plugin.version": "1.0.6",
   "debug-build-mode": false,
-  "open-tab": 1,
+  "open-tab": 3,
   "plugin-components": [
     {
       "children": [
@@ -39,40 +39,20 @@
           ]
         },
         {
-          "children": [{
-            "children": [{
-              "=": "stat-execute-procedure",
-              "parameters": [
-                "chatroom_enabler",
-                {"=": "expr-new-list"}
-              ]
-            }],
-            "=": "stat-if-statement",
-            "parameters": [
-              {
-                "=": "expr-is-equal",
-                "parameters": [
-                  {
-                    "=": "expr-global-variable",
-                    "parameters": ["running"]
-                  },
-                  {
-                    "=": "expr-boolean",
-                    "parameters": ["false"]
-                  }
-                ]
-              },
-              "normal"
-            ]
-          }],
-          "=": "stat-schedule-task",
+          "=": "stat-set-global-variable",
           "parameters": [
-            "async",
-            "repeat",
+            "terminated",
             {
-              "=": "expr-number",
-              "parameters": ["18000"]
+              "=": "expr-boolean",
+              "parameters": ["false"]
             }
+          ]
+        },
+        {
+          "=": "stat-execute-procedure",
+          "parameters": [
+            "keep-alive",
+            {"=": "expr-new-list"}
           ]
         },
         {
@@ -942,7 +922,7 @@
               {"=": "expr-command-sender"},
               {
                 "=": "expr-string",
-                "parameters": ["&6[&cdank&6.&cserver&6] ➤ &cYou are already connected&6!"]
+                "parameters": ["&6[&cdank&6.&cchatroom&6] ➤ &cYou are already connected&6!"]
               }
             ]
           }],
@@ -967,10 +947,13 @@
         {
           "children": [
             {
-              "=": "stat-execute-procedure",
+              "=": "stat-set-global-variable",
               "parameters": [
-                "chatroom_enabler",
-                {"=": "expr-new-list"}
+                "terminated",
+                {
+                  "=": "expr-boolean",
+                  "parameters": ["false"]
+                }
               ]
             },
             {
@@ -979,8 +962,15 @@
                 {"=": "expr-command-sender"},
                 {
                   "=": "expr-string",
-                  "parameters": ["&6[&cdank&6.&cserver&6] ➤ &cTrying to connect&6..."]
+                  "parameters": ["&6[&cdank&6.&cchatroom&6] ➤ &cTrying to connect&6..."]
                 }
+              ]
+            },
+            {
+              "=": "stat-execute-procedure",
+              "parameters": [
+                "chatroom_enabler",
+                {"=": "expr-new-list"}
               ]
             }
           ],
@@ -1012,12 +1002,22 @@
               ]
             },
             {
+              "=": "stat-set-global-variable",
+              "parameters": [
+                "terminated",
+                {
+                  "=": "expr-boolean",
+                  "parameters": ["true"]
+                }
+              ]
+            },
+            {
               "=": "org.bukkit.command.CommandSender#sendMessage(java.lang.String)",
               "parameters": [
                 {"=": "expr-command-sender"},
                 {
                   "=": "expr-string",
-                  "parameters": ["&6[&cdank&6.&cserver&6] ➤ &cYou have been disconnected&6!"]
+                  "parameters": ["&6[&cdank&6.&cchatroom&6] ➤ &cYou have been disconnected&6!"]
                 }
               ]
             }
@@ -1047,7 +1047,7 @@
               {"=": "expr-command-sender"},
               {
                 "=": "expr-string",
-                "parameters": ["&6[&cdank&6.&cserver&6] ➤ &cYou are already disconnected&6!"]
+                "parameters": ["&6[&cdank&6.&cchatroom&6] ➤ &cYou are already disconnected&6!"]
               }
             ]
           }],
@@ -1133,19 +1133,82 @@
       ],
       "=": "comp-procedure",
       "parameters": ["chatroom_login"]
+    },
+    {
+      "children": [{
+        "children": [{
+          "children": [{
+            "=": "stat-execute-procedure",
+            "parameters": [
+              "chatroom_enabler",
+              {"=": "expr-new-list"}
+            ]
+          }],
+          "=": "stat-if-statement",
+          "parameters": [
+            {
+              "=": "expr-boolean-logic",
+              "parameters": [
+                {
+                  "=": "expr-is-equal",
+                  "parameters": [
+                    {
+                      "=": "expr-global-variable",
+                      "parameters": ["running"]
+                    },
+                    {
+                      "=": "expr-boolean",
+                      "parameters": ["false"]
+                    }
+                  ]
+                },
+                "AND",
+                {
+                  "=": "expr-is-equal",
+                  "parameters": [
+                    {
+                      "=": "expr-global-variable",
+                      "parameters": ["terminated"]
+                    },
+                    {
+                      "=": "expr-boolean",
+                      "parameters": ["false"]
+                    }
+                  ]
+                }
+              ]
+            },
+            "normal"
+          ]
+        }],
+        "=": "stat-schedule-task",
+        "parameters": [
+          "async",
+          "repeat",
+          {
+            "=": "expr-number",
+            "parameters": ["18000"]
+          }
+        ]
+      }],
+      "=": "comp-procedure",
+      "parameters": ["keep-alive"]
     }
   ],
   "plugin.soft-dependencies": "",
   "plugin.name": "DankChatroom",
   "plugin.prefix": "dank.chatroom",
-  "current-plugin-component": 1,
+  "current-plugin-component": 3,
   "extensions": ["bStats"],
   "plugin.author": "SirDank",
   "plugin.description": "Minecraft server integration for the dank.tool's chatroom!",
   "plugin.permissions": "",
   "open-plugin-components": [
-    8,
-    9
+    9,
+    15,
+    0,
+    13,
+    12
   ],
   "plugin.website": "https://github.com/SirDank/dank.chatroom-plugin"
 }

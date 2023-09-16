@@ -13,6 +13,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 
 	public static Object GLOBAL_54bc2ca21fe9f603fdf50a6cae5269ec;
 	public static Object GLOBAL_9ce148715491d15c729aff6847d37f60;
+	public static Object GLOBAL_c5c29952652c4a76ae64d39c1db91561;
 	public static Object GLOBAL_65e48c28264992f0f46da7786376f6c3;
 	public static Object GLOBAL_6613e6c3dc9064e6ad3422610595df88;
 	public static Object GLOBAL_d92cf494435f80e45b01635d54d1c17f;
@@ -25,18 +26,8 @@ public class PluginMain extends JavaPlugin implements Listener {
 			new Metrics(PluginMain.getInstance(), ((int) (19689d)));
 			PluginMain.GLOBAL_54bc2ca21fe9f603fdf50a6cae5269ec = ((java.lang.Object) (Object) (0d));
 			PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
-			new org.bukkit.scheduler.BukkitRunnable() {
-				public void run() {
-					try {
-						if (PluginMain.checkEquals(GLOBAL_9ce148715491d15c729aff6847d37f60,
-								((java.lang.Object) (Object) false))) {
-							PluginMain.procedure("chatroom_enabler", new ArrayList());
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
-			}.runTaskTimerAsynchronously(PluginMain.getInstance(), 0, ((long) (18000d)));
+			PluginMain.GLOBAL_c5c29952652c4a76ae64d39c1db91561 = ((java.lang.Object) (Object) false);
+			PluginMain.procedure("keep-alive", new ArrayList());
 			((org.bukkit.command.CommandSender) (Object) ((org.bukkit.command.ConsoleCommandSender) org.bukkit.Bukkit
 					.getConsoleSender())).sendMessage(ChatColor.translateAlternateColorCodes('&',
 							"\n\n\n&l&c     888                   888                                             \n&l&c     888                   888           s i r &f.&c d a n k &f'&c s               \n&l&c     888                   888                                             \n&l&c .d88888  8888b.  88888b.  888  888 888  888  888  8888b.  888d888 .d88b.  \n&l&cd88\" 888     \"88b 888 \"88b 888 .88P 888  888  888     \"88b 888P\"  d8P  Y8b \n&l&c888  888 .d888888 888  888 888888K  888  888  888 .d888888 888    88888888 \n&l&cY88b 888 888  888 888  888 888 \"88b Y88b 888 d88P 888  888 888    Y8b.     \n&l&c \"Y88888 \"Y888888 888  888 888  888  \"Y8888888P\"  \"Y888888 888     \"Y8888  \n\n \n "));
@@ -62,11 +53,12 @@ public class PluginMain extends JavaPlugin implements Listener {
 				if (PluginMain.checkEquals(GLOBAL_9ce148715491d15c729aff6847d37f60,
 						((java.lang.Object) (Object) true))) {
 					PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
+					PluginMain.GLOBAL_c5c29952652c4a76ae64d39c1db91561 = ((java.lang.Object) (Object) true);
 					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&6[&cdank&6.&cserver&6] \u27A4 &cYou have been disconnected&6!"));
+							"&6[&cdank&6.&cchatroom&6] \u27A4 &cYou have been disconnected&6!"));
 				} else {
 					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&6[&cdank&6.&cserver&6] \u27A4 &cYou are already disconnected&6!"));
+							"&6[&cdank&6.&cchatroom&6] \u27A4 &cYou are already disconnected&6!"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -78,11 +70,12 @@ public class PluginMain extends JavaPlugin implements Listener {
 				if (PluginMain.checkEquals(GLOBAL_9ce148715491d15c729aff6847d37f60,
 						((java.lang.Object) (Object) true))) {
 					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&6[&cdank&6.&cserver&6] \u27A4 &cYou are already connected&6!"));
+							"&6[&cdank&6.&cchatroom&6] \u27A4 &cYou are already connected&6!"));
 				} else {
-					PluginMain.procedure("chatroom_enabler", new ArrayList());
+					PluginMain.GLOBAL_c5c29952652c4a76ae64d39c1db91561 = ((java.lang.Object) (Object) false);
 					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&6[&cdank&6.&cserver&6] \u27A4 &cTrying to connect&6..."));
+							"&6[&cdank&6.&cchatroom&6] \u27A4 &cTrying to connect&6..."));
+					PluginMain.procedure("chatroom_enabler", new ArrayList());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -93,6 +86,23 @@ public class PluginMain extends JavaPlugin implements Listener {
 	}
 
 	public static void procedure(String procedure, List procedureArgs) throws Exception {
+		if (procedure.equalsIgnoreCase("keep-alive")) {
+			new org.bukkit.scheduler.BukkitRunnable() {
+				public void run() {
+					try {
+						if ((PluginMain.checkEquals(GLOBAL_9ce148715491d15c729aff6847d37f60,
+								((java.lang.Object) (Object) false))
+								&& PluginMain.checkEquals(GLOBAL_c5c29952652c4a76ae64d39c1db91561,
+										((java.lang.Object) (Object) false)))) {
+							PluginMain.procedure("chatroom_enabler", new ArrayList());
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			}.runTaskTimerAsynchronously(PluginMain.getInstance(), 0, ((long) (18000d)));
+			return;
+		}
 		if (procedure.equalsIgnoreCase("chatroom_login")) {
 			Object $01903771aa49381d3482b07d777054c5 = null;
 			try {
@@ -100,7 +110,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 						new ArrayList(Arrays.asList("https://dank-site.onrender.com/chatroom-login", "POST",
 								GLOBAL_6613e6c3dc9064e6ad3422610595df88)));
 				PluginMain.getInstance().getLogger().info("Logged in!");
-			} catch (Exception opYbrseqSDNRyeva) {
+			} catch (Exception bayUzJNAOgqyyUOg) {
 				PluginMain.getInstance().getLogger().severe("Failed to login!");
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 			}
@@ -121,7 +131,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 									((java.lang.Object) (Object) true))) {
 								try {
 									PluginMain.procedure("chatroom_validator", new ArrayList());
-								} catch (Exception jxbnpJyhvKaFvtlz) {
+								} catch (Exception MZIFvqBtEEVifQwE) {
 									PluginMain.getInstance().getLogger().severe("Failed to validate!");
 									PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 									cancel();
@@ -141,7 +151,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 									((java.lang.Object) (Object) true))) {
 								try {
 									PluginMain.procedure("chatroom_grabber_and_output", new ArrayList());
-								} catch (Exception jZSqAixvHcBWNPtc) {
+								} catch (Exception aYOKTdLpoJOCtWKt) {
 									PluginMain.getInstance().getLogger().severe("Failed to get chat!");
 									PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 									cancel();
@@ -236,7 +246,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 				PluginMain.getInstance().getLogger()
 						.info(("HWID: " + String.valueOf(GLOBAL_65e48c28264992f0f46da7786376f6c3)));
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) true);
-			} catch (Exception QmNyXkBszBvWsfuc) {
+			} catch (Exception fwXgaBznLpQBGhTd) {
 				PluginMain.getInstance().getLogger().severe("Failed to get HWID!");
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 			}
@@ -375,7 +385,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 						+ ((java.lang.String) ((org.bukkit.command.CommandSender) (Object) ((org.bukkit.entity.Player) event
 								.getPlayer())).getName()))
 						+ "] > ") + ((java.lang.String) event.getMessage())))));
-			} catch (Exception YVzEZUHAbgOgdKjG) {
+			} catch (Exception PePTDjGCmbfRvCGj) {
 				PluginMain.getInstance().getLogger().severe("Input Failed!");
 				PluginMain.GLOBAL_9ce148715491d15c729aff6847d37f60 = ((java.lang.Object) (Object) false);
 			}
