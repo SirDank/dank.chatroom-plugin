@@ -1,14 +1,30 @@
 name: "DankChatroom"
-version: "1.0.6"
-main: "vb.$dankchatroom.PluginMain"
-api-version: 1.13
+version: "1.1.0"
+main: "DankChatroom.PluginMain"
+api-version: "1.20"
 authors: [SirDank]
 description: "Minecraft server integration for the dank.tool's chatroom!"
-prefix: "dank.chatroom"
 website: "https://github.com/SirDank/dank.chatroom-plugin"
+prefix: "dank.chatroom"
+
 commands:
   chatroom-connect:
-    description: "Connects server to the dank.tool's chatroom!"
+    description: "Connect to dank.chatroom, used after /chatroom-login"
+    permission: "OP"
+    permission-message: "&8[&adank&8.&achatroom&8] &cOnly operators can use this command&8!"
   chatroom-disconnect:
-    description: "Disconnects server from the dank.tool's chatroom!"
-permissions:
+    description: "Disconnect from dank.chatroom"
+    permission: "OP"
+    permission-message: "&8[&adank&8.&achatroom&8] &cOnly operators can use this command&8!"
+  chatroom-login:
+    description: "Login to dank.chatroom, use /chatroom-connect after this"
+    permission: "OP"
+    permission-message: "&8[&adank&8.&achatroom&8] &cOnly operators can use this command&8!"
+  chatroom-username:
+    description: "Display dank.chatroom username for this server"
+    permission: "OP"
+    permission-message: "&8[&adank&8.&achatroom&8] &cOnly operators can use this command&8!"
+  chatroom-users:
+    description: "Display connected users / servers"
+    permission: "OP"
+    permission-message: "&8[&adank&8.&achatroom&8] &cOnly operators can use this command&8!"

@@ -9,16 +9,15 @@
 
 ## ♦️ commands ♦️
 
+- /chatroom-login
 - /chatroom-connect
 - /chatroom-disconnect
-
-## ♦️ direct download ♦️
-
-URL: https://github.com/SirDank/dank.chatroom-plugin/raw/main/Visual%20Bukkit%20Project/Build/target/dankchatroom.jar
+- /chatroom-username
+- /chatroom-users
 
 ## ♦️ diagram ♦️
 
-<br><p align="center"><img width="800" alt="image" src="https://github.com/SirDank/dank.chatroom-plugin/assets/52797753/bdc4ebc0-2028-4b13-8967-b09be943b9d9"></p><br>
+<br><p align="center"><img width="800" alt="image" src="https://github.com/user-attachments/assets/b4930430-17c6-4d26-a292-bbc92ea64f43"></p><br>
 
 ## ♦️ dank.chatroom-plugin preview ♦️
 
@@ -30,11 +29,11 @@ URL: https://github.com/SirDank/dank.chatroom-plugin/raw/main/Visual%20Bukkit%20
 
 ## ♦️ dank.tool preview ♦️
 
-<br><p align="center"><a href="https://github.com/SirDank/dank.tool"><img width="800" alt="image" src="https://github.com/SirDank/dank.tool/assets/52797753/ded02b28-8e3a-4a0b-aae0-1d09ba72e8e0"></p></a><br>
+<br><p align="center"><a href="https://github.com/SirDank/dank.tool"><img width="800" alt="image" src="https://github.com/SirDank/dank.tool/assets/52797753/99caab6e-68ee-4d8e-91f1-b85b6df7220e"></p></a><br>
 
 ## ♦️ visual bukkit preview ♦️
 
-<br><p align="center"><a href="https://github.com/OfficialDonut/VisualBukkit"><img width="800" alt="image" src="https://camo.githubusercontent.com/f124fc198b8e16d1c4e7ebf540e19491e5db60bfbae014d05c4e537e568e55c8/68747470733a2f2f692e696d6775722e636f6d2f365039685237762e706e67"></p></a><br>
+<br><p align="center"><a href="https://github.com/OfficialDonut/VisualBukkit"><img width="800" alt="image" src="https://i.imgur.com/NvKdV9G.png"></p></a><br>
 
 ## ♦️ bStats ♦️
 
@@ -42,4 +41,4 @@ URL: https://github.com/SirDank/dank.chatroom-plugin/raw/main/Visual%20Bukkit%20
 
 ## ♦️ Also check out dank.resourcepack! ♦️
 
-- https://github.com/SirDank/dank.resource-pack
+- <https://github.com/SirDank/dank.resource-pack>
