@@ -575,7 +575,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
-	public void $event_plK4735EoWQFnRQs(org.bukkit.event.player.AsyncPlayerChatEvent event) throws Exception {
+	public void $event_uzfo6TH55jRW153U(org.bukkit.event.player.AsyncPlayerChatEvent event) throws Exception {
 		Object $a15f6804744220b583ab9c3b5e950025 = null;
 		if (PluginMain.resolve_boolean(PluginMain.function("CheckConnected", Collections.emptyList()))) {
 			$a15f6804744220b583ab9c3b5e950025 = ("[" + event.getPlayer().getName() + "] - " + event.getMessage());
@@ -586,14 +586,14 @@ public class PluginMain extends JavaPlugin implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
-	public void $event_qxn8xFUbonKNLuuy(org.bukkit.event.player.PlayerJoinEvent event) throws Exception {
+	public void $event_AO9z1qNtiESp3P5O(org.bukkit.event.player.PlayerJoinEvent event) throws Exception {
 		if (PluginMain.resolve_boolean(PluginMain.function("CheckConnected", Collections.emptyList()))) {
 			PluginMain.procedure("pSend", List.of((event.getPlayer().getName() + " joined the server!")));
 		}
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
-	public void $event_pYsFItz380eCPkt8(org.bukkit.event.player.PlayerQuitEvent event) throws Exception {
+	public void $event_cEJ7OjfNEHY3S56o(org.bukkit.event.player.PlayerQuitEvent event) throws Exception {
 		if (PluginMain.resolve_boolean(PluginMain.function("CheckConnected", Collections.emptyList()))) {
 			PluginMain.procedure("pSend", List.of((event.getPlayer().getName() + " left the server!")));
 		}
