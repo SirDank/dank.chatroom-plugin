@@ -1,7 +1,7 @@
 {
   "debug-mode": false,
   "package": "DankChatroom",
-  "jar-output": "C:\\Users\\SirDank\\Desktop\\test\\plugins",
+  "jar-output": "C:\\Users\\SirDank\\Desktop",
   "selected-tab": 0,
   "maven-dependencies": [
     {
@@ -13,31 +13,14 @@
       "coords": "org.bstats:bstats-bukkit:jar:3.1.0"
     }
   ],
-  "open-plugin-components": [
-    "PluginEnable",
-    "print",
-    "pbStats",
-    "cUsername",
-    "cLogin",
-    "pLogin",
-    "cConnect",
-    "pConnect",
-    "cDisconnect",
-    "pDisconnect",
-    "cUsers",
-    "CompressString",
-    "ColorMessage",
-    "eJoin",
-    "eQuit",
-    "eChat"
-  ],
+  "open-plugin-components": ["pConnect"],
   "plugin-settings": {
     "website": "https://github.com/SirDank/dank.chatroom-plugin",
     "prefix": "dank.chatroom",
     "permissions": "",
     "name": "DankChatroom",
     "description": "Minecraft server integration for the dank.tool's chatroom!",
-    "version": "1.1.0",
+    "version": "2.0.1",
     "soft-depend": "",
     "authors": "SirDank",
     "dependencies": "",
